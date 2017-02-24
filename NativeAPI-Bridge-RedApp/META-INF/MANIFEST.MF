@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: NativeApi
+Bundle-SymbolicName: com.sabre.tn.redapp.example.nativeApi;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.sabre.tn.redapp.example.nativeapi.Activator
+Bundle-Vendor: Sabre Travel Network
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.sabre.edge.redapp.contactdetails;bundle-version="1.0.5",
+ com.sabre.edge.dynamo.nativeapi.broker;bundle-version="1.0.0",
+ com.sabre.edge.dynamo.nativeapi.cdm;bundle-version="1.0.0",
+ com.sabre.edge.cf.common;bundle-version="1.0.9",
+ com.sabre.edge.cf.core;bundle-version="1.0.19"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy

@@ -1,0 +1,14 @@
+<CFBundle>
+	<RedApp id="com.sabre.tn.redapp.example.nativeApi">
+		<Publisher id="E5782F29-1FFB-41D3-B803-6716F9BEB3D9" />
+		<Authorization name="com.sabre.edge.cf.emu.Session"
+			threshold="10" metric="tpm" />
+		<Authorization name="com.sabre.edge.cf.emu.ExecuteInEmulator" threshold="1" />
+		<Authorization name="com.sabre.edge.cf.emu.ShowInEmulator" threshold="1" />
+		<Authorization name="com.sabre.edge.cf.host.Communication" threshold="1" />
+		<Authorization name="com.sabre.edge.cf.host.Locking" threshold="1" />
+		
+	</RedApp>
+	<EventListener event_filter="EMU_RESPONSE" state="PRE" action_code="1"/>
+	<EventListener event_filter="EMU_RESPONSE" state="PRE" action_code="*"/>
+</CFBundle>

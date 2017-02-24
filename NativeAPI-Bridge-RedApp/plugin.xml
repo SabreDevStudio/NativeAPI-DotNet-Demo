@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   
+   <extension point="com.sabre.edge.redapp.contactdetails.provider">
+      <contactDetails
+            company="Sabre Travel Network"
+            website="http://www.sabretravelnetwork.com"
+            phoneNumber="Contact your local Sabre Help Desk Telephone Number"
+            email="applications.support@sabre.com"
+            contactName="Application Support - Sabre Travel Network">
+      </contactDetails>
+   </extension>
+   
+   <extension
+         point="com.sabre.edge.dynamo.nativeapi">
+   </extension>
+   <extension
+         point="com.sabre.edge.cf.redapp">
+   </extension>
+
+</plugin>
