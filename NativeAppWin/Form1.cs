@@ -63,20 +63,23 @@ namespace NativeAppWin
             String host = "localhost";
             int port = int.Parse("61616");
             String redAppID = "com.sabre.tn.redapp.example.nativeApi";
+            String userID = System.Environment.GetEnvironmentVariable("USERNAME");
+            String domainID = System.Environment.GetEnvironmentVariable("USERDOMAIN");
 
-            //Create connection            
+            //Create connection
             Uri connectUri = new Uri("activemq:tcp://" + host + ":" + port);
             IConnectionFactory factory = new NMSConnectionFactory(connectUri);
-            connection = factory.CreateConnection(user,password);
+            connection = factory.CreateConnection(user, password);
             connection.Start();
 
             //Start a session
             session = connection.CreateSession();
 
             //Get address for request / reponse queues
-            destinationRQ = SessionUtil.GetDestination(session, redAppID + RQ_QUEUE_SUFFIX);
-            destinationRS = SessionUtil.GetDestination(session, redAppID + RS_QUEUE_SUFFIX);
+            destinationRQ = SessionUtil.GetDestination(session, redAppID + "_" + domainID + "\\" + userID + RQ_QUEUE_SUFFIX);
+            destinationRS = SessionUtil.GetDestination(session, redAppID + "_" + domainID + "\\" + userID + RS_QUEUE_SUFFIX);
 
+ 
 
             // create request producer
             producer = session.CreateProducer(destinationRQ);
