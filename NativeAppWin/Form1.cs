@@ -109,10 +109,26 @@ namespace NativeAppWin
  
         }
 
+
         private String eventSubscriptionRQ()
         {
             String body = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><com.sabre.edge.dynamo.nativeapi:EventSubscriptionRQ xmlns:com.sabre.edge.dynamo.nativeapi=\"http://stl.sabre.com/POS/SRW/NextGen/nativeapi/v1.0\"><com.sabre.edge.dynamo.nativeapi:event eventName=\"EMU_RESPONSE\" state=\"PRE\" /></com.sabre.edge.dynamo.nativeapi:EventSubscriptionRQ>";
             return body;
+        }
+
+
+        private String commandtSubscriptionRQ()
+        {
+            String body = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?><ns1:CommandSubscriptionRQ xmlns:ns1 =\"http://stl.sabre.com/POS/SRW/NextGen/nativeapi/v1.0\"/>";
+            return body;
+        }
+
+        private String commandInterceptionRS(String pCommand)
+        {
+
+            String body = "<?xml version = \"1.0\" encoding = \"UTF-8\" ?><com.sabre.edge.dynamo.nativeapi:CommandInterceptionRS xmlns:com.sabre.edge.dynamo.nativeapi=\"http://stl.sabre.com/POS/SRW/NextGen/nativeapi/v1.0\" command = \"" + pCommand + "\" />";
+            return body;
+
         }
 
         private void EndSession()
@@ -277,6 +293,7 @@ namespace NativeAppWin
             isListening = !isListening;
         }
 
+
         private void button2_Click(object sender, EventArgs e)
         {
             SendMessage(getSessionTokenRQ());
@@ -288,6 +305,15 @@ namespace NativeAppWin
             SendMessage(executeInEmuRQ(this.textBox1.Text));
         }
 
-        
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SendMessage(commandtSubscriptionRQ());
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SendMessage(commandInterceptionRS(this.textBox2.Text));
+                
+        }
     }
 }
