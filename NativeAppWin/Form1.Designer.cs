@@ -1,6 +1,6 @@
 ﻿namespace NativeAppWin
 {
-    partial class Form1
+    partial class FormMain
     {
         /// <summary>
         /// Required designer variable.
@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.richTextBoxMessageDetail = new System.Windows.Forms.RichTextBox();
+            this.listBoxMessages = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.buttonCmdInterceptionRS = new System.Windows.Forms.Button();
+            this.textBoxCmdInterception = new System.Windows.Forms.TextBox();
+            this.buttonCmdSubscribe = new System.Windows.Forms.Button();
+            this.buttonSendEmuCmd = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button5 = new System.Windows.Forms.Button();
+            this.checkBoxShowCmd = new System.Windows.Forms.CheckBox();
+            this.textBoxSendEmuCmd = new System.Windows.Forms.TextBox();
+            this.buttonGetToken = new System.Windows.Forms.Button();
+            this.buttonStartListening = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -49,46 +49,46 @@
             // 
             this.groupBox1.AutoSize = true;
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupBox1.Controls.Add(this.richTextBox1);
-            this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.Controls.Add(this.richTextBoxMessageDetail);
+            this.groupBox1.Controls.Add(this.listBoxMessages);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(692, 307);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "msgs received";
+            this.groupBox1.Text = "Messaging";
             // 
-            // richTextBox1
+            // richTextBoxMessageDetail
             // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(272, 16);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(417, 288);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "";
+            this.richTextBoxMessageDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxMessageDetail.Location = new System.Drawing.Point(272, 16);
+            this.richTextBoxMessageDetail.Name = "richTextBoxMessageDetail";
+            this.richTextBoxMessageDetail.Size = new System.Drawing.Size(417, 288);
+            this.richTextBoxMessageDetail.TabIndex = 4;
+            this.richTextBoxMessageDetail.Text = "";
             // 
-            // listBox1
+            // listBoxMessages
             // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(3, 16);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(269, 288);
-            this.listBox1.TabIndex = 5;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBoxMessages.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listBoxMessages.FormattingEnabled = true;
+            this.listBoxMessages.Location = new System.Drawing.Point(3, 16);
+            this.listBoxMessages.Name = "listBoxMessages";
+            this.listBoxMessages.Size = new System.Drawing.Size(269, 288);
+            this.listBoxMessages.TabIndex = 5;
+            this.listBoxMessages.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button5);
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.button4);
-            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.buttonCmdInterceptionRS);
+            this.groupBox2.Controls.Add(this.textBoxCmdInterception);
+            this.groupBox2.Controls.Add(this.buttonCmdSubscribe);
+            this.groupBox2.Controls.Add(this.buttonSendEmuCmd);
             this.groupBox2.Controls.Add(this.checkBox2);
-            this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.checkBoxShowCmd);
+            this.groupBox2.Controls.Add(this.textBoxSendEmuCmd);
+            this.groupBox2.Controls.Add(this.buttonGetToken);
+            this.groupBox2.Controls.Add(this.buttonStartListening);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox2.Location = new System.Drawing.Point(0, 307);
             this.groupBox2.Name = "groupBox2";
@@ -97,25 +97,42 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "send msgs";
             // 
-            // button4
+            // buttonCmdInterceptionRS
             // 
-            this.button4.Location = new System.Drawing.Point(9, 48);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(114, 23);
-            this.button4.TabIndex = 11;
-            this.button4.Text = "CommandSub";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.buttonCmdInterceptionRS.Location = new System.Drawing.Point(383, 49);
+            this.buttonCmdInterceptionRS.Name = "buttonCmdInterceptionRS";
+            this.buttonCmdInterceptionRS.Size = new System.Drawing.Size(138, 23);
+            this.buttonCmdInterceptionRS.TabIndex = 13;
+            this.buttonCmdInterceptionRS.Text = "CmdInterceptionRS";
+            this.buttonCmdInterceptionRS.UseVisualStyleBackColor = true;
+            this.buttonCmdInterceptionRS.Click += new System.EventHandler(this.buttonCmdInterceptionRS_Click);
             // 
-            // button3
+            // textBoxCmdInterception
             // 
-            this.button3.Location = new System.Drawing.Point(556, 15);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(102, 23);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Send EMU Cmd";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.textBoxCmdInterception.Location = new System.Drawing.Point(276, 51);
+            this.textBoxCmdInterception.Name = "textBoxCmdInterception";
+            this.textBoxCmdInterception.Size = new System.Drawing.Size(100, 20);
+            this.textBoxCmdInterception.TabIndex = 12;
+            // 
+            // buttonCmdSubscribe
+            // 
+            this.buttonCmdSubscribe.Location = new System.Drawing.Point(9, 48);
+            this.buttonCmdSubscribe.Name = "buttonCmdSubscribe";
+            this.buttonCmdSubscribe.Size = new System.Drawing.Size(114, 23);
+            this.buttonCmdSubscribe.TabIndex = 11;
+            this.buttonCmdSubscribe.Text = "Cmd Subscribe";
+            this.buttonCmdSubscribe.UseVisualStyleBackColor = true;
+            this.buttonCmdSubscribe.Click += new System.EventHandler(this.buttonCmdSubscribe_Click);
+            // 
+            // buttonSendEmuCmd
+            // 
+            this.buttonSendEmuCmd.Location = new System.Drawing.Point(556, 15);
+            this.buttonSendEmuCmd.Name = "buttonSendEmuCmd";
+            this.buttonSendEmuCmd.Size = new System.Drawing.Size(102, 23);
+            this.buttonSendEmuCmd.TabIndex = 10;
+            this.buttonSendEmuCmd.Text = "Send EMU Cmd";
+            this.buttonSendEmuCmd.UseVisualStyleBackColor = true;
+            this.buttonSendEmuCmd.Click += new System.EventHandler(this.buttonSendEmuCmd_Click);
             // 
             // checkBox2
             // 
@@ -127,69 +144,52 @@
             this.checkBox2.Text = "showResp";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // checkBoxShowCmd
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(383, 19);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(72, 17);
-            this.checkBox1.TabIndex = 8;
-            this.checkBox1.Text = "showCmd";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxShowCmd.AutoSize = true;
+            this.checkBoxShowCmd.Location = new System.Drawing.Point(383, 19);
+            this.checkBoxShowCmd.Name = "checkBoxShowCmd";
+            this.checkBoxShowCmd.Size = new System.Drawing.Size(72, 17);
+            this.checkBoxShowCmd.TabIndex = 8;
+            this.checkBoxShowCmd.Text = "showCmd";
+            this.checkBoxShowCmd.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // textBoxSendEmuCmd
             // 
-            this.textBox1.Location = new System.Drawing.Point(276, 21);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 7;
+            this.textBoxSendEmuCmd.Location = new System.Drawing.Point(276, 21);
+            this.textBoxSendEmuCmd.Name = "textBoxSendEmuCmd";
+            this.textBoxSendEmuCmd.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSendEmuCmd.TabIndex = 7;
             // 
-            // button2
+            // buttonGetToken
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(139, 19);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(120, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "get token";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonGetToken.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonGetToken.Location = new System.Drawing.Point(139, 19);
+            this.buttonGetToken.Name = "buttonGetToken";
+            this.buttonGetToken.Size = new System.Drawing.Size(120, 23);
+            this.buttonGetToken.TabIndex = 6;
+            this.buttonGetToken.Text = "Get Token";
+            this.buttonGetToken.UseVisualStyleBackColor = true;
+            this.buttonGetToken.Click += new System.EventHandler(this.buttonGetToken_Click);
             // 
-            // button1
+            // buttonStartListening
             // 
-            this.button1.Location = new System.Drawing.Point(9, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Start listening";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonStartListening.Location = new System.Drawing.Point(9, 19);
+            this.buttonStartListening.Name = "buttonStartListening";
+            this.buttonStartListening.Size = new System.Drawing.Size(114, 23);
+            this.buttonStartListening.TabIndex = 5;
+            this.buttonStartListening.Text = "Start listening";
+            this.buttonStartListening.UseVisualStyleBackColor = true;
+            this.buttonStartListening.Click += new System.EventHandler(this.buttonStartListening_Click);
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(276, 51);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 12;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(383, 49);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(138, 23);
-            this.button5.TabIndex = 13;
-            this.button5.Text = "CmdInterceptionRS";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // Form1
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(692, 400);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
-            this.Name = "Form1";
+            this.Name = "FormMain";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -202,18 +202,18 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.ListBox listBoxMessages;
+        private System.Windows.Forms.RichTextBox richTextBoxMessageDetail;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonGetToken;
+        private System.Windows.Forms.Button buttonStartListening;
+        private System.Windows.Forms.Button buttonSendEmuCmd;
         private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.CheckBox checkBoxShowCmd;
+        private System.Windows.Forms.TextBox textBoxSendEmuCmd;
+        private System.Windows.Forms.Button buttonCmdSubscribe;
+        private System.Windows.Forms.Button buttonCmdInterceptionRS;
+        private System.Windows.Forms.TextBox textBoxCmdInterception;
     }
 }
 
