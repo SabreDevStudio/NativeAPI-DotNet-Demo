@@ -76,7 +76,7 @@
             this.listBoxMessages.Name = "listBoxMessages";
             this.listBoxMessages.Size = new System.Drawing.Size(269, 293);
             this.listBoxMessages.TabIndex = 5;
-            this.listBoxMessages.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBoxMessages.SelectedIndexChanged += new System.EventHandler(this.listBoxMessages_SelectedIndexChanged);
             // 
             // groupBox2
             // 
@@ -191,7 +191,8 @@
             this.Controls.Add(this.groupBox2);
             this.Name = "FormMain";
             this.Text = "Sabre Native API Tester";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

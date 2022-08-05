@@ -55,8 +55,8 @@ namespace NativeAppWin
             String host = "localhost";
             int port = int.Parse("61616");
             String redAppID = "com.company.app.goes.here";  // from your eclipse workspace, project
-            String userID = System.Environment.GetEnvironmentVariable("USERNAME");
-            String domainID = System.Environment.GetEnvironmentVariable("USERDOMAIN");
+            String userID = Environment.GetEnvironmentVariable("USERNAME");
+            String domainID = Environment.GetEnvironmentVariable("USERDOMAIN");
 
             // Create connection
             Uri connectUri = new Uri("activemq:tcp://" + host + ":" + port);
@@ -130,12 +130,12 @@ namespace NativeAppWin
             SendMessage(eventSubscriptionRQ());
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void FormMain_Load(object sender, EventArgs e)
         {
             StartSession();
         }
 
-        private void Form1_FormClosed(object sender, EventArgs e)
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             EndSession();
         }
@@ -151,7 +151,6 @@ namespace NativeAppWin
             totMsgSent++;
             String msgID = "out->" + totMsgSent + "-" + rootName;
             cacheMsgs(msgID, msg.Text);
-
         }
 
         protected void onMessageAuto(IMessage rcvdMsg)
@@ -222,7 +221,7 @@ namespace NativeAppWin
             }
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxMessages_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.listBoxMessages.SelectedIndex >= 0)
             {
@@ -247,12 +246,10 @@ namespace NativeAppWin
             isListening = !isListening;
         }
 
-
         private void buttonGetToken_Click(object sender, EventArgs e)
         {
             SendMessage(getSessionTokenRQ());
         }
-
 
         private void buttonSendEmuCmd_Click(object sender, EventArgs e)
         {
