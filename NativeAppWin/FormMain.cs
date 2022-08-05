@@ -17,14 +17,12 @@ using System.Xml.XPath;
 
 namespace NativeAppWin
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
-
         private static String RQ_QUEUE_SUFFIX = "_request";
         private static String RS_QUEUE_SUFFIX = "_response";
 
         private bool isListening = false;
-      
 
         protected static AutoResetEvent semaphore = new AutoResetEvent(false);
         protected static ITextMessage message = null;
@@ -37,36 +35,30 @@ namespace NativeAppWin
         IMessageProducer producer;
         IMessageConsumer consumer;
 
-
         private int totMsgSent = 0;
         private int totMsgReceived = 0;
 
         protected String athID = null;
-
         protected static List<String> msgCache = new List<string>();
-
         protected static Dictionary<String, String> msgsCache = new Dictionary<string, string>();
 
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
-
-
         }
 
         private void StartSession()
         {
-
-            //authentication data to connect to NativeAPI Bridge RedApp (ActiveMQ Broker)
+            // authentication data to connect to NativeAPI Bridge RedApp (ActiveMQ Broker)
             String user = "admin";
             String password = "password";
             String host = "localhost";
             int port = int.Parse("61616");
-            String redAppID = "com.sabre.tn.redapp.example.nativeApi";
-            String userID = System.Environment.GetEnvironmentVariable("USERNAME");
-            String domainID = System.Environment.GetEnvironmentVariable("USERDOMAIN");
+            String redAppID = "com.company.app.goes.here";  // from your eclipse workspace, project
+            String userID = Environment.GetEnvironmentVariable("USERNAME");
+            String domainID = Environment.GetEnvironmentVariable("USERDOMAIN");
 
-            //Create connection
+            // Create connection
             Uri connectUri = new Uri("activemq:tcp://" + host + ":" + port);
             IConnectionFactory factory = new NMSConnectionFactory(connectUri);
             connection = factory.CreateConnection(user, password);
@@ -79,43 +71,33 @@ namespace NativeAppWin
             destinationRQ = SessionUtil.GetDestination(session, redAppID + "_" + domainID + "\\" + userID + RQ_QUEUE_SUFFIX);
             destinationRS = SessionUtil.GetDestination(session, redAppID + "_" + domainID + "\\" + userID + RS_QUEUE_SUFFIX);
 
- 
-
             // create request producer
             producer = session.CreateProducer(destinationRQ);
             producer.DeliveryMode = MsgDeliveryMode.Persistent;
-
-
 
             // create a consumee for responses queue, would receive and "parse" all messages from Bridge RedApp
             // note that it will work "assynchronously", that is, the broker can "push" messages to client, without need to "pool"
             consumer = session.CreateConsumer(destinationRS);
             consumer.Listener += new MessageListener(onMessageAuto);
-            
         }
 
         private String getSessionTokenRQ()
         {
             String body = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><com.sabre.edge.dynamo.nativeapi:GetSessionSecurityTokenRQ xmlns:com.sabre.edge.dynamo.nativeapi=\"http://stl.sabre.com/POS/SRW/NextGen/nativeapi/v1.0\"/>";
             return body;
-
-
         }
 
         private String executeInEmuRQ(String pCommand)
         {
-            String body = "<?xml version = \"1.0\" encoding = \"UTF-8\" ?><com.sabre.edge.dynamo.nativeapi:ExecuteInEmuRQ xmlns:com.sabre.edge.dynamo.nativeapi=\"http://stl.sabre.com/POS/SRW/NextGen/nativeapi/v1.0\" showCommand=\"" + (this.checkBox1.Checked ? "true" : "false") + "\" showResponse=\"" + (this.checkBox2.Checked ? "true" : "false") + "\"><Command>" + pCommand + "</Command></com.sabre.edge.dynamo.nativeapi:ExecuteInEmuRQ>";
+            String body = "<?xml version = \"1.0\" encoding = \"UTF-8\" ?><com.sabre.edge.dynamo.nativeapi:ExecuteInEmuRQ xmlns:com.sabre.edge.dynamo.nativeapi=\"http://stl.sabre.com/POS/SRW/NextGen/nativeapi/v1.0\" showCommand=\"" + (this.checkBoxShowCmd.Checked ? "true" : "false") + "\" showResponse=\"" + (this.checkBox2.Checked ? "true" : "false") + "\"><Command>" + pCommand + "</Command></com.sabre.edge.dynamo.nativeapi:ExecuteInEmuRQ>";
             return body;
- 
         }
-
 
         private String eventSubscriptionRQ()
         {
             String body = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><com.sabre.edge.dynamo.nativeapi:EventSubscriptionRQ xmlns:com.sabre.edge.dynamo.nativeapi=\"http://stl.sabre.com/POS/SRW/NextGen/nativeapi/v1.0\"><com.sabre.edge.dynamo.nativeapi:event eventName=\"EMU_RESPONSE\" state=\"PRE\" /></com.sabre.edge.dynamo.nativeapi:EventSubscriptionRQ>";
             return body;
         }
-
 
         private String commandtSubscriptionRQ()
         {
@@ -125,10 +107,8 @@ namespace NativeAppWin
 
         private String commandInterceptionRS(String pCommand)
         {
-
             String body = "<?xml version = \"1.0\" encoding = \"UTF-8\" ?><com.sabre.edge.dynamo.nativeapi:CommandInterceptionRS xmlns:com.sabre.edge.dynamo.nativeapi=\"http://stl.sabre.com/POS/SRW/NextGen/nativeapi/v1.0\" command = \"" + pCommand + "\" />";
             return body;
-
         }
 
         private void EndSession()
@@ -143,29 +123,22 @@ namespace NativeAppWin
         {
             consumer.Close();
             consumer.Listener -= null;
-            
-
         }
 
         private void startListening()
         {
             SendMessage(eventSubscriptionRQ());
-
-
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void FormMain_Load(object sender, EventArgs e)
         {
             StartSession();
-
         }
 
-        private void Form1_FormClosed(object sender, EventArgs e)
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             EndSession();
         }
-        
-
 
         private void SendMessage(String body)
         {
@@ -178,16 +151,13 @@ namespace NativeAppWin
             totMsgSent++;
             String msgID = "out->" + totMsgSent + "-" + rootName;
             cacheMsgs(msgID, msg.Text);
-
         }
-
-
 
         protected void onMessageAuto(IMessage rcvdMsg)
         {
             ITextMessage tmpmessage = rcvdMsg as ITextMessage;
-            XmlDocument doc = new XmlDocument();
 
+            XmlDocument doc = new XmlDocument();
             doc.LoadXml(tmpmessage.Text);
 
             String rootName = doc.DocumentElement.Name;
@@ -195,18 +165,12 @@ namespace NativeAppWin
             String msgID = "in<-" + totMsgReceived + "-" + rootName;
 
             cacheMsgs(msgID, tmpmessage.Text);
-
-
         }
-
-
 
         private void cacheMsgs(String msgID,String msgText)
         {
             msgsCache.Add(msgID, msgText);
             addMsgList(msgID);
-
-
         }
 
         delegate void refreshCountCb(String text);
@@ -216,104 +180,91 @@ namespace NativeAppWin
             {
                 refreshCountCb cb = new refreshCountCb(refreshCount);
                 this.groupBox1.Invoke(cb,new object[] { text });
-
-
-            }else
+            }
+            else
             {
                 this.groupBox1.Text = text;
-
             }
         }
 
         delegate void refreshListCb(List<String> msgs);
         private void refreshList(List<String> msgs)
         {
-            if (this.listBox1.InvokeRequired)
+            if (this.listBoxMessages.InvokeRequired)
             {
                 refreshListCb cb = new refreshListCb(refreshList);
-                this.listBox1.Invoke(cb, new object[] { msgs });
-
-
-            }else
+                this.listBoxMessages.Invoke(cb, new object[] { msgs });
+            }
+            else
             {
-                this.listBox1.Items.Clear();
+                this.listBoxMessages.Items.Clear();
                 int tam = msgCache.Count;
                 int i = 0;
                 for (i = 0; i < tam; i++)
                 {
-                    this.listBox1.Items.Add("Item" + i);
+                    this.listBoxMessages.Items.Add("Item" + i);
                 }
-
             }
         }
 
         delegate void addMsgListCb(String msgID);
         private void addMsgList(String msgID)
         {
-            if (this.listBox1.InvokeRequired)
+            if (this.listBoxMessages.InvokeRequired)
             {
                 addMsgListCb cb = new addMsgListCb(addMsgList);
-                this.listBox1.Invoke(cb, new object[] { msgID });
-
-
+                this.listBoxMessages.Invoke(cb, new object[] { msgID });
             }
             else
             {
-                
-                this.listBox1.Items.Add(msgID);
-
-
+                this.listBoxMessages.Items.Add(msgID);
             }
         }
 
-
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxMessages_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.listBox1.SelectedIndex >= 0)
+            if (this.listBoxMessages.SelectedIndex >= 0)
             {
-                this.richTextBox1.Clear();
-                String msgID = this.listBox1.GetItemText(this.listBox1.GetItemText(this.listBox1.SelectedItem));
+                this.richTextBoxMessageDetail.Clear();
+                String msgID = this.listBoxMessages.GetItemText(this.listBoxMessages.GetItemText(this.listBoxMessages.SelectedItem));
 
                 if (msgsCache.ContainsKey(msgID))
-                    this.richTextBox1.Text = msgsCache[msgID];
+                    this.richTextBoxMessageDetail.Text = msgsCache[msgID];
                 else
-                    this.richTextBox1.Text = "";
-
+                    this.richTextBoxMessageDetail.Text = "";
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonStartListening_Click(object sender, EventArgs e)
         {
             if (!isListening)
             {
                 startListening();
-                this.button1.Text = "listening Events";
+                this.buttonStartListening.Text = "listening Events";
             }
+
             isListening = !isListening;
         }
 
-
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonGetToken_Click(object sender, EventArgs e)
         {
             SendMessage(getSessionTokenRQ());
         }
 
-
-        private void button3_Click(object sender, EventArgs e)
+        private void buttonSendEmuCmd_Click(object sender, EventArgs e)
         {
-            SendMessage(executeInEmuRQ(this.textBox1.Text));
+            SendMessage(executeInEmuRQ(this.textBoxSendEmuCmd.Text));
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void buttonCmdSubscribe_Click(object sender, EventArgs e)
         {
             SendMessage(commandtSubscriptionRQ());
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void buttonCmdInterceptionRS_Click(object sender, EventArgs e)
         {
-            SendMessage(commandInterceptionRS(this.textBox2.Text));
-                
+            SendMessage(commandInterceptionRS(this.textBoxCmdInterception.Text));
         }
+
     }
 }
