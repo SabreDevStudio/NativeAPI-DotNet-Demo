@@ -57,7 +57,7 @@
             this.groupBox1.Size = new System.Drawing.Size(692, 312);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Messaging";
+            this.groupBox1.Text = "Messages";
             // 
             // richTextBoxMessageDetail
             // 
@@ -95,7 +95,7 @@
             this.groupBox2.Size = new System.Drawing.Size(692, 103);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "send msgs";
+            this.groupBox2.Text = "Send Message Actions";
             // 
             // buttonCmdInterceptionRS
             // 
