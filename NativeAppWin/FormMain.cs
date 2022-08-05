@@ -54,7 +54,7 @@ namespace NativeAppWin
             String password = "password";
             String host = "localhost";
             int port = int.Parse("61616");
-            String redAppID = "com.atllc.autopilot.test";
+            String redAppID = "com.company.app.goes.here";  // from your eclipse workspace, project
             String userID = System.Environment.GetEnvironmentVariable("USERNAME");
             String domainID = System.Environment.GetEnvironmentVariable("USERDOMAIN");
 
@@ -93,13 +93,11 @@ namespace NativeAppWin
             return body;
         }
 
-
         private String eventSubscriptionRQ()
         {
             String body = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><com.sabre.edge.dynamo.nativeapi:EventSubscriptionRQ xmlns:com.sabre.edge.dynamo.nativeapi=\"http://stl.sabre.com/POS/SRW/NextGen/nativeapi/v1.0\"><com.sabre.edge.dynamo.nativeapi:event eventName=\"EMU_RESPONSE\" state=\"PRE\" /></com.sabre.edge.dynamo.nativeapi:EventSubscriptionRQ>";
             return body;
         }
-
 
         private String commandtSubscriptionRQ()
         {
